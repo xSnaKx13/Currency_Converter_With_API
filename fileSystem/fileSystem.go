@@ -1,11 +1,13 @@
 package filesystem
 
 import (
+	promptdata "Currency_Converter/promptData"
+	tobyte "Currency_Converter/toByte"
 	"fmt"
 	"os"
 )
 
-func WriteFile(fileName string, content []byte) {
+func writeFile(fileName string, content []byte) {
 	data, err := os.Create(fileName)
 	if err != nil {
 		panic(err)
@@ -18,7 +20,7 @@ func WriteFile(fileName string, content []byte) {
 	defer data.Close()
 }
 
-func ReadFile(fileName string) []byte {
+func readFile(fileName string) []byte {
 	data, err := os.ReadFile(fileName)
 	if err != nil {
 		panic(err)
@@ -26,16 +28,28 @@ func ReadFile(fileName string) []byte {
 	return data
 }
 
-func DeleteFile(fileName string) {
+func deleteFile(fileName string) {
 	err := os.Remove(fileName)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func RenameFile(oldName string, newName string) {
+func renameFile(oldName string, newName string) {
 	err := os.Rename(oldName, newName)
 	if err != nil {
 		panic(err)
 	}
+}
+
+func WriteInFile(content any) {
+	fileName, err := promptdata.PromptData("Введите название файла: ")
+	if err != nil {
+		promptdata.PrintErr(err)
+	}
+	data, err := tobyte.ToByte(content)
+	if err != nil {
+		promptdata.PrintErr(err)
+	}
+	writeFile(fileName, data)
 }

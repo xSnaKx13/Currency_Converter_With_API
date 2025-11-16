@@ -18,6 +18,7 @@ type ExchangeRates struct {
 func GetExchangeRates() (ExchangeRates, error) {
 	baseCurrency, err := promptdata.PromptData("Введите базовую валюту: ")
 	if err != nil {
+		// добавить текст ошибки
 		return ExchangeRates{}, err
 	}
 	url := fmt.Sprintf("https://open.er-api.com/v6/latest/%s", baseCurrency)
