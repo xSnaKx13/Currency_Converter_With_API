@@ -25,3 +25,17 @@ func ReadFile(fileName string) []byte {
 	}
 	return data
 }
+
+func DeleteFile(fileName string) {
+	err := os.Remove(fileName)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func RenameFile(oldName string, newName string) {
+	err := os.Rename(oldName, newName)
+	if err != nil {
+		panic(err)
+	}
+}
